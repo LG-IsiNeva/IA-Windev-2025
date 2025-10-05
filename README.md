@@ -3,3 +3,4 @@ L'article montre comment une IA, initialement peu compétente en WLangage, peut 
 
 https://www.isineva.com/qualite-du-code-wlangage-genere-par-ia/
 
+![Apprentissage IA Windev](ia_windev_apprentissage.webp)
