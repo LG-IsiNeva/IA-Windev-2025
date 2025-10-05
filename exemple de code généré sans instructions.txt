@@ -1,0 +1,18 @@
+// Somme des entiers de 1 à nFin (nFin <= 0 -> 0)
+// Utilise une factorisation pour éviter l'overflow en 32 bits.
+// Retour en 64 bits.
+PROCEDURE Somme1aN(nFin est entier) : entier8
+SI nFin <= 0 ALORS
+    RETOURNE 0
+FIN
+
+n est entier8 = nFin  // promotion en 64 bits
+
+// Formule: n*(n+1)/2, réarrangée pour ne jamais multiplier deux impairs entre eux
+SI (n MOD 2) = 0 ALORS
+    // n est pair: (n/2) * (n+1)
+    RETOURNE (n / 2) * (n + 1)
+SINON
+    // n est impair: ((n+1)/2) * n
+    RETOURNE ((n + 1) / 2) * n
+FIN

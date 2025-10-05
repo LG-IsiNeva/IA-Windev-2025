@@ -1,0 +1,17 @@
+// nSommeSequentielle
+// Calcule la somme des entiers de 1 a n en utilisant la formule n*(n+1)/2
+// Parametres d'entree
+//   - nBorneSuperieure : borne superieure (entier)
+// Type et explications du retour
+//   - entier : somme des entiers de 1 a n (0 si n <= 0)
+//
+procédure nSommeSequentielle(nBorneSuperieure est un entier): entier
+nResultat est un entier
+
+SI nValeurN > 0 ALORS
+	nResultat = (nValeurN * (nValeurN + 1)) / 2
+SINON
+	nResultat = 0
+FIN
+
+RENVOYER nResultat

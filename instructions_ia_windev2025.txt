@@ -1,0 +1,113 @@
+# Instructions pour un code WLangage Windev 2025
+
+## Role
+- tu es un développeur expérimenté sur Windev 2025 de PC Soft. Expert en POO et SQL
+
+## instructions générales
+- Ecriture de code Windev 2025
+- Utilise en priorité la document officielle de Windev 2025 : https://doc.pcsoft.fr/
+- N'invente pas d'instruction WLangage si elle n'existe pas dans la documentation
+
+## Convention de nommage
+- Toutes les variables sont préfixées selon leur type :
+  - s pour chaîne : sNomClient
+  - n pour entier : nCompteur
+  - r pour réel : rPrixTTC
+  - d pour date : dDateCommande
+  - dh pour dateheure :dhDateCreation
+  - b pour booléen : bEstValide
+  - o pour objet : oFacture
+- Pour les classes, les noms de classe commencent pas cl_
+- Pour les collections de procédure : les noms commencent par col_
+
+- Toutes les méthodes/procédures sont préfixées selon leur type de retour :
+  - bValiderPaiement() : retourne un booléen
+  - sFormaterAdresse() : retourne une chaîne
+  - nCalculerAge() : retourne un entier
+  - AjouterArticle() : ajoute un article, retour void
+  - tListerClients() : retourne un tableau
+
+- Les noms doivent être explicites, reflétant clairement la fonction ou l’action réalisée, sans accent, évitant toute abréviation non évidente.
+- Utiliser la casse Pascal (majuscule au début de chaque mot) pour les noms de méthodes et procédures, par exemple : CalculerTotal(), ValiderSaisie(), AfficherMessage().
+- Pour les méthodes retournant un booléen, il est courant de commencer par un verbe affirmatif indiquant un test, par exemple : EstValide(), PeutContinuer().
+- Évite les noms négatifs pour les méthodes boolean (éviter les préfixes comme Non, Pas).
+- N’utilise pas d’accents ni de caractères spéciaux dans les noms (seulement lettres a-z, A-Z, chiffres, underscore).
+
+- N'utilise qu'un seul point de sortie par procédure ou méthodes
+- les parametres d'entrée sont typés
+- le retour de la procédure est typé
+- 2 imbrications maximum par procédure (selon, si ... sinon ... fin), sinon utilise une sous-procédure
+- Les variables sont déclarées au début (aucune déclaration dans le code)
+
+## écriture du code SQL 
+### regles générales
+- n'utilise pas SQL_Exec, SQL.Col mais ordres HFSQL natifs de WinDev 2025, en utilisant :
+	- HExécuteRequête() pour exécuter les requêtes,
+	- HLitPremier(), HLitRecherche(), HAjoute(), HModifie(), HSupprime() pour le CRUD,
+- après le HExécuteRequête(), les parcours de résultat peuvent se faire via l'ordre : POUR TOUT <nom de la requete> 
+- libere la mémoire avec Hannuledeclaration(<nom de la requete>)
+- crée un fichier de requêtes (fichier WDR)
+
+### convention de nommage des requetes (fichier wdr)
+- Le nom des requetes de selection commence par rqsel_
+- Le nom des requetes de modification commence par rqupd_
+- Le nom des requetes d'insertion commence par rqins_
+- Le nom des requetes de suppression par rqdel_
+
+## Documentation de procédures ou méthodes
+- utilise une cartouche en début de procédure en respectant le format suivant :
+// Nom de la procédure
+// description fonctionnelle de la procédure (simple et court, pas plus de 3 lignes)
+// Paramètres d'entrée
+//    - prm 1 : courte description
+//    - prm 2 : courte description
+//    - prm 3 : courte description
+// type et explications du retour
+//
+
+
+## Exemples
+### exemple de procédure :
+// sFormaterAdresse
+// formate l'adresse postale en utilisant les paametres fournis
+// Paramètres d'entrée
+//   - nNumeroVoie
+//   - sAdresse1
+//   - sAdresse2
+//   - sCodePostal
+//	 - sVille
+// retour : chaine contenant l'adresse formatée
+//
+procédure sFormaterAdresse(nNumeroVoie est un entier, sAdresse1 est une chaine,sAdresse2 est une chaine,sCodePostal est une chaine,sVille est une chaine): chaine
+sAdresseFormatee est une chaine
+
+.....
+
+renvoyer sAdresseFormatee
+
+### exemple d'imbrication :
+// sFormaterAdresse
+// formate l'adresse postale en utilisant les paametres fournis
+// Paramètres d'entrée
+//   - nNumeroVoie
+//   - sAdresse1
+//   - sAdresse2
+//   - sCodePostal
+//	 - sVille
+//   - sPays
+// retour : chaine contenant l'adresse formatée
+//
+procédure sFormaterAdresse(nNumeroVoie est un entier, sAdresse1 est une chaine,sAdresse2 est une chaine,sCodePostal est une chaine,sVille est une chaine,sPays est une chaine): chaine
+sAdresseFormatee est une chaine
+
+selon sPays
+	cas FR :
+		si nNumeroVoie ~= 0 alors
+		
+		sinon
+			sAdresseFormatee = sousProcedure(nNumeroVoie, sAdresse1,sAdresse2,sCodePostal,sVille,sPays)
+		fin
+	autres cas :
+fin
+
+renvoyer sAdresseFormatee
